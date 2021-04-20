@@ -110,11 +110,9 @@ $general_result = mysqli_query( $dbconnect, "SELECT * FROM `product` ORDER BY RA
 						<!--col-lg-4 = columnLarge4 | ColumnMedium6 | Meduim4 -->
 						<div class="card h-100">
 
-							<div class="image-container">
-
-								<!--This pull the image on tpo the page from the database-->
-								<a href="/detail.php?id=<?php echo $row['product_id'] ?>"><img class="card-img-top" src="<?php echo $row['p_image'] ?>" alt=""></a>
-							</div>
+								<div class="image-container">
+									<a href="/detail.php?id=<?php echo $row['product_id'] ?>"><img class="card-img-top" style="width:100%; height:100%;" src="<?php echo $row['p_image_thumb'] ?>" alt=""></a>
+								</div>
 
 
 							<div class="card-body">
@@ -124,16 +122,15 @@ $general_result = mysqli_query( $dbconnect, "SELECT * FROM `product` ORDER BY RA
 									</a>
 								</h4>
 
-
-								<h5>£
-									<?php echo $row['p_price']; ?>
-								</h5>
-								<h5>
-									<?php echo $row['p_category']; ?>
-								</h5>
-								<p class="card-text">
-									<?php echo $row['p_detail-thumb'] ?>
+											<p class="card-text">
+									<?php echo $row['p_colour'] ?>
 								</p>
+
+								<h3>£
+									<?php echo $row['p_sale_price']; ?>
+								</h3>
+					
+					
 							</div>
 							<div class="card-footer">
 								<!--This is the star ratings-->

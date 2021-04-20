@@ -15,26 +15,14 @@ include('inc/inc_loginform.php');
 	<div class="container" align="center">
 		<div class="header-slider">
 			<div class="header-slider-image">
-				<img class="d-block img-fluid" src="img/Banner1.png" alt="Smarties">
+				<img class="d-block img-fluid" src="images/Global/Gibson Custom Shop 67 Hero.png" alt="Gibson Custom Shop 67">
 			</div>
 			<div class="header-slider-image">
-				<img class="d-block img-fluid" src="img/Banner2.png" alt="Jelly Bean">
+				<img class="d-block img-fluid" src="images/Global/LSL Badbone Hero.png" alt="LSL Badbone">
 			</div>
 			<div class="header-slider-image">
-				<img class="d-block img-fluid" src="img/Banner3.png" alt="Heart">
+				<img class="d-block img-fluid" src="images/Global/Fender 60s Strat Hero.png" alt="Fender 60s Strat">
 			</div>
-	        <div class="header-slider-image">
-				<img class="d-block img-fluid" src="img/Banner4.png" alt="Wow!">
-			</div>
-	       <div class="header-slider-image">
-				<img class="d-block img-fluid" src="img/Banner5.png" alt="Yummy!">
-			</div>
-	         <div class="header-slider-image">
-				<img class="d-block img-fluid" src="img/Banner6.png" alt="Yummy!">
-			</div>
-
-
-			
 		</div>
 	</div>
 
@@ -42,7 +30,7 @@ include('inc/inc_loginform.php');
 
 
 // Display All Products
-$general_result = mysqli_query( $dbconnect, "SELECT * FROM `product` ORDER BY RAND() LIMIT 3" );
+$general_result = mysqli_query( $dbconnect, "SELECT * FROM `product` WHERE `p_category`!='Accessories' ORDER BY RAND() LIMIT 9" );
 
 $boiledSweets_result = mysqli_query( $dbconnect, "SELECT * FROM `product` WHERE `p_category`='Boiled Sweets' LIMIT 3" );
 $ToffeeandFudge_result = mysqli_query( $dbconnect, "SELECT * FROM `product` WHERE `p_category`='Toffee and Fudge' LIMIT 3" );
@@ -65,23 +53,23 @@ $JarsOfJoy_result = mysqli_query($dbconnect, "SELECT * FROM `product` WHERE `p_c
 							<div class="card h-100 border-primary mb-3">
                                 
 								<div class="image-container">
-									<a href="/detail.php?id=<?php echo $row['product_id'] ?>"><img class="card-img-top" src="<?php echo $row['p_image'] ?>" alt=""></a>
+									<a href="/detail.php?id=<?php echo $row['product_id'] ?>"><img class="card-img-top" style="width:100%; height:100%;" src="<?php echo $row['p_image_thumb'] ?>" alt=""></a>
 								</div>
+
 								<div class="card-body">
 									<h4 class="card-title">
 										<a href="/detail.php?id=<?php echo $row['product_id'] ?>">
 											<?php echo $row['p_name']; ?>
 										</a>
 									</h4>
-<h5>£
-										<?php echo $row['p_price']; ?>
-									</h5>
-									<h5>
-										<?php echo $row['p_category']; ?>
-									</h5>
 									<p class="card-text">
-										<?php echo $row['p_detail-thumb'] ?>
+										<?php echo $row['p_colour'] ?>
 									</p>
+									<h3>£
+										<?php echo $row['p_sale_price']; ?>
+									</h5>
+							
+
 								
 								</div>
 								<div class="card-footer bg-transparent border-primary">

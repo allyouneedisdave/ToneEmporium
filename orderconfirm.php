@@ -73,7 +73,7 @@ if (isset($_SESSION['cart']) && $_SESSION['cart'] !== "") { //if there is any it
 									</a>
 								</div>
 								<div class="cart-product-cat">
-									<?= $cartRow['p_detail-thumb'] ?>
+									<?= $cartRow['p_colour'] ?>
 								</div>
 							</div>
 
@@ -84,7 +84,7 @@ if (isset($_SESSION['cart']) && $_SESSION['cart'] !== "") { //if there is any it
 							</div>
 							<div class="col-2 cart-price">
 								£
-								<?= number_format(($cartRow['p_price'] * $qty),2, '.', ' ') ?>
+								<?= number_format(($cartRow['p_sale_price'] * $qty),2, '.', ' ') ?>
 							</div>
 							<div class="col-2">
 
@@ -97,7 +97,7 @@ if (isset($_SESSION['cart']) && $_SESSION['cart'] !== "") { //if there is any it
 
 
 						<?php
-				$total += $cartRow['p_price'] * $qty;
+				$total += $cartRow['p_sale_price'] * $qty;
 			} //END WHILE
 		} //End IF
 	} //End Foreach 
@@ -173,7 +173,7 @@ if (isset($_SESSION['cart']) && $_SESSION['cart'] !== "") { //if there is any it
 				$cartresult = mysqli_query( $dbconnect, $sql );
 				while ( $cartRow = mysqli_fetch_array( $cartresult ) ) {
 					$name = $cartRow['p_name'];
-					$price = number_format(($cartRow['p_price'] * $qty), 2, '.', ' ');
+					$price = number_format(($cartRow['p_sale_price'] * $qty), 2, '.', ' ');
 
 					echo <<<END
 

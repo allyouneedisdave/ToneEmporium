@@ -350,7 +350,7 @@ table {
     padding: 5px;
     background-color: #D76339;
     position: fixed;
-    top: 82px;
+    top: 81px;
     width: 100%;
     z-index: 99;
 }
@@ -358,7 +358,7 @@ table {
 
 .breadcrumb-cont {
     position: fixed;
-    top: 130px;
+    top: 129px;
     z-index: 99;
     width: 100%;
     border-bottom: solid 2px #abb3b9;
@@ -568,14 +568,14 @@ footer .fa-snapchat-ghost {
 }
 
 
-.mobile-header{
-    position:fixed;
-    top:0px;
-    display:none;
-    width:100%;
-    background-color:#0062cc;
-    height:100px;
-    z-index:999;
+.mobile-header {
+    position: fixed;
+    top: 0px;
+    display: none;
+    width: 100%;
+    background-color: #D76339;
+    height: 100px;
+    z-index: 999;
 }
 .mobile-header-title{
     font-family: "montserrat";

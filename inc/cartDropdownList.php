@@ -44,7 +44,7 @@ include( $_SERVER[ 'DOCUMENT_ROOT' ] . '/inc/dbconnect.inc.php' );
                     while ( $row = mysqli_fetch_array( $cartresult ) ) {
 
                         $name = $row['p_name'];
-                        $price = $row['p_price'];
+                        $price = $row['p_sale_price'];
 
                         $cartList .= <<<END
 
@@ -56,7 +56,7 @@ include( $_SERVER[ 'DOCUMENT_ROOT' ] . '/inc/dbconnect.inc.php' );
 END;
 
 
-                        $total += $row['p_price'] * $qty;
+                        $total += $row['p_sale_price'] * $qty;
                         
 
                     }; //END WHILE

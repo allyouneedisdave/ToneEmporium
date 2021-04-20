@@ -62,7 +62,7 @@ if($_POST['stage']=="1") {
 		if(!$customerInsert) {
 
 			// Set the PHP session 'message' to a user friendly error message
-			$_SESSION['message']="Problem entering customer;"
+			$_SESSION['message']="Problem entering customer";
 
 			// Redirect the user back to the checkout1 page
 			header("location: /checkout1.php");

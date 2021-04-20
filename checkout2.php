@@ -25,7 +25,7 @@ END;
 
 
 <br>
-<H2>Insert paymant gateway here!</H2>
+<H2>Insert payment gateway here!</H2>
 
 <!--Paypal , Nochex API -->
 <br/>

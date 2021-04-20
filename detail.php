@@ -80,13 +80,13 @@ echo mysqli_error( $dbconnect );
             <div class="row">
                 <div class="col-lg-12">
                     <div class="card mt-4">
-                        <img class="card-img-top img-fluid" src="<?php echo $row['p_image'] ?>" alt="">
+                        <img class="card-img-top img-fluid" src="<?php echo $row['p_image_thumb'] ?>" alt="">
                         <div class="card-body">
                             <h3 class="card-title">
                                 <?php echo $row['p_name']; ?>
                             </h3>
                             <h4>£
-                                <?php echo $row['p_price']; ?>
+                                <?php echo $row['p_sale_price']; ?>
                             </h4>
                             <p class="card-text">
                                 <?php echo $row['p_detail'] ?>
@@ -135,7 +135,7 @@ $general_result = mysqli_query( $dbconnect, "SELECT * FROM `product` ORDER BY RA
 							<div class="card h-100 border-primary mb-3">
                                 <h5 class="card-header card text-white bg-primary mb-3">Featured</h5>
 								<div class="image-container">
-									<a href="/detail.php?id=<?php echo $row['product_id'] ?>"><img class="card-img-top" src="<?php echo $row['p_image'] ?>" alt=""></a>
+									<a href="/detail.php?id=<?php echo $row['product_id'] ?>"><img class="card-img-top" src="<?php echo $row['p_image_thumb'] ?>" alt=""></a>
 								</div>
 								<div class="card-body">
 									<h4 class="card-title">
@@ -143,15 +143,14 @@ $general_result = mysqli_query( $dbconnect, "SELECT * FROM `product` ORDER BY RA
 											<?php echo $row['p_name']; ?>
 										</a>
 									</h4>
-<h5>£
-										<?php echo $row['p_price']; ?>
-									</h5>
-									<h5>
-										<?php echo $row['p_category']; ?>
-									</h5>
-									<p class="card-text">
-										<?php echo $row['p_detail-thumb'] ?>
+                                    <p class="card-text">
+										<?php echo $row['p_colour'] ?>
 									</p>
+                                    <h3>£
+										<?php echo $row['p_sale_price']; ?>
+									</h3>
+	
+
 								
 								</div>
 								<div class="card-footer bg-transparent border-primary">

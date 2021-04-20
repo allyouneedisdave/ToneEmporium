@@ -25,9 +25,9 @@ if (isset($_GET[ 'bathroom'] )) {
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta charset="utf-8">
-        <title>Tutto | Amore </title>
+        <title>Tone Emporium | The Home of Tone </title>
         <!-- Favicon -->
-        <link rel="icon" type="icon/png" href="/images/logo.png">
+        <link rel="icon" type="icon/png" href="/images/Logo/favicon.png">
 
         <!--JQuery CSS-->
         <link rel="stylesheet" type="text/css" href="../js/jquery-ui.css" />
@@ -86,8 +86,7 @@ if (isset($_GET[ 'bathroom'] )) {
                                 <a class="dropdown-item" href="/listings.php?cat=Offset">Offset</a>
                                 <a class="dropdown-item" href="/listings.php?cat=Hollow Body">Hollow Body</a>
                                 <a class="dropdown-item" href="/listings.php?cat=Accessories">Accessories</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">Special Offers</a>
+
                             </div>
                         </li>
                         
@@ -122,7 +121,7 @@ if (isset($_GET[ 'bathroom'] )) {
                                     <a class="dropdown-item" href="../listings.php?cat=Double Cutaway">Double Cutaway</a>
                                     <a class="dropdown-item" href="../listings.php?cat=Offset">Offset</a>
                                     <a class="dropdown-item" href="../listings.php?cat=Hollow Body">Hollow Body</a>
-                                    <a class="dropdown-item" href="/listings.php?cat=Accessories">Accessories</a>
+                                    <a class="dropdown-item" href="../listings.php?cat=Accessories">Accessories</a>
                                     <!--<div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="#">Special Offers</a>-->
                                 </div>
