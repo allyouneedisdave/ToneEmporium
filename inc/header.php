@@ -73,19 +73,19 @@ if (isset($_GET[ 'bathroom'] )) {
                             <a class="nav-link" href="/">Home<span class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/listings.php">All Sweets</a>
+                            <a class="nav-link" href="/listings.php">All Guitars</a>
                         </li>
                     
                         <li class="nav-item ">
-                            <a class="nav-link " href="#" id="navbarDropdown" >Catagories</a>
+                            <a class="nav-link " href="#" id="navbarDropdown" >Categories</a>
                             <div class="" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="/listings.php?cat=Boiled Sweets">Boiled Sweets</a>
-                                <a class="dropdown-item" href="/listings.php?cat=Jelly Sweets">Jelly Sweets</a>
-                                <a class="dropdown-item" href="/listings.php?cat=Toffee and Fudge">Toffee and Fudge</a>
-                                <a class="dropdown-item" href="/listings.php?cat=Bon Bons">Bon Bons</a>
-                                <a class="dropdown-item" href="/listings.php?cat=Chocolate">Chocolate</a>
-                                <a class="dropdown-item" href="/listings.php?cat=Jars Of Joy">Jars Of Joy</a>
-                                <a class="dropdown-item" href="/listings.php?cat=Lollipop">Lollipops</a>
+                                <a class="dropdown-item" href="/listings.php?cat=Strat Style">Strat Style</a>
+                                <a class="dropdown-item" href="/listings.php?cat=Tele Style">Tele Style</a>
+                                <a class="dropdown-item" href="/listings.php?cat=Single Cutaway">Single Cutaway</a>
+                                <a class="dropdown-item" href="/listings.php?cat=Double Cutaway">Double Cutaway</a>
+                                <a class="dropdown-item" href="/listings.php?cat=Offset">Offset</a>
+                                <a class="dropdown-item" href="/listings.php?cat=Hollow Body">Hollow Body</a>
+                                <a class="dropdown-item" href="/listings.php?cat=Accessories">Accessories</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#">Special Offers</a>
                             </div>
@@ -101,26 +101,30 @@ if (isset($_GET[ 'bathroom'] )) {
             <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
                 <div class="container">
                     <!--<a class="navbar-brand" href="../index.php"><h1>Tutto</h1></a>-->
-                    
+                   <a class="navbar-brand" href="../index.php">
+                        <div style="width:400px;">
+                            <img src="/images/main/Logo/logowhitelong.png" style="height:100%; width:100%;" />
+                        </div>
+                    </a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav mr-auto">
                             <li class="nav-item active">
-                                <a class="nav-link" href="../listings.php">All Sweets<span class="sr-only">(current)</span></a>
+                                <a class="nav-link" href="../listings.php">All Guitars<span class="sr-only">(current)</span></a>
                             </li>
                         
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sweet Shop</a>
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categories</a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="../listings.php?cat=Boiled Sweets">Boiled Sweets</a>
-                                    <a class="dropdown-item" href="../listings.php?cat=Jelly Sweets">Jelly Sweets</a>
-                                    <a class="dropdown-item" href="../listings.php?cat=Toffee and Fudge">Toffee and Fudge</a>
-                                    <a class="dropdown-item" href="../listings.php?cat=Bon Bons">Bon Bons</a>
-                                    <a class="dropdown-item" href="../listings.php?cat=Chocolate">Chocolate</a>
-                                    <a class="dropdown-item" href="../listings.php?cat=Jars Of Joy">Jars Of Joy</a>
-                                    <a class="dropdown-item" href="/listings.php?cat=Lollipop">Lollipops</a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#">Special Offers</a>
+                                    <a class="dropdown-item" href="../listings.php?cat=Strat Style">Strat Style</a>
+                                    <a class="dropdown-item" href="../listings.php?cat=Tele Style">Tele Style</a>
+                                    <a class="dropdown-item" href="../listings.php?cat=Single Cutaway">Single Cutaway</a>
+                                    <a class="dropdown-item" href="../listings.php?cat=Double Cutaway">Double Cutaway</a>
+                                    <a class="dropdown-item" href="../listings.php?cat=Offset">Offset</a>
+                                    <a class="dropdown-item" href="../listings.php?cat=Hollow Body">Hollow Body</a>
+                                    <a class="dropdown-item" href="/listings.php?cat=Accessories">Accessories</a>
+                                    <!--<div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="#">Special Offers</a>-->
                                 </div>
                             </li>
                             
@@ -137,7 +141,7 @@ if (isset($_GET[ 'bathroom'] )) {
                     <div class="nav-item mr-auto">
                        <div class="basket-container">
 
-                            <div class="btn btn-success ml-2" id="header-cart-btn"><i class="fas fa-shopping-basket"></i> <div class="basket-number"><span id="headercart">-</span></div></div>
+                            <div class="btn btn-success ml-2" id="header-cart-btn"><i class="fas fa-shopping-cart"></i> <div class="basket-number"><span id="headercart">-</span></div></div>
 
                             <div class="basket-drop">
                                 <div class="basket-title">
@@ -164,7 +168,13 @@ if (isset($_GET[ 'bathroom'] )) {
 
             <!-- Mobile header -->
             <header class="mobile-header">
-                <div class="mobile-header-title">Tutto</div>
+                <!--<div class="mobile-header-title">Tutto</div>-->
+
+                       <div class="mobile-header-title" style="width:250px;">
+                   
+                               <img src="/images/main/Logo/logowhitelong.png" style="height:100%; width:100%;" />
+                     
+                        </div>
 
                 <div id="mobile-nav-open">
                     <i class="fas fa-bars"></i>
