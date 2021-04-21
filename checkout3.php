@@ -70,7 +70,7 @@ if (isset($_SESSION['cart']) && $_SESSION['cart'] !== "") { //if there is any it
 
 							<div class="row cart-row">
 								<div class="col-2">
-									<img class="cart-image" src="<?= $cartRow['p_image'] ?>" alt="">
+									<img class="cart-image" src="<?= $cartRow['p_image_thumb'] ?>" alt="">
 								</div>
 								<div class="col-4">
 									<div class="cart-product-name">
@@ -85,7 +85,7 @@ if (isset($_SESSION['cart']) && $_SESSION['cart'] !== "") { //if there is any it
 
 								<div class="col-2">
 									<div class="cart-qty">
-										Qty: <input class="form-control cart-qty-input" type="number" name="qty <?= $id ?>" value="<?= $qty ?>" />
+										Qty: <input class="form-control cart-qty-input" type="number" name="qty" value="<?= $qty ?>" />
 									</div>
 								</div>
 								<div class="col-2 cart-price">
@@ -190,7 +190,8 @@ END;
 								<p class="CartGrandTotal">
 									Grand Total: <strong>&pound; <?= number_format($total, 2, '.', ' ') ?></strong>
 								</p>
-                                    <input type="hidden" name="total" value="'.  $total.'" />
+                                    <!--<input type="hidden" name="total" value="'.  $total.'" />-->
+									<input type="hidden" name="total" value="<?php echo $total; ?>" />
                                     <input type="hidden" name="stage" value="3" />
 								
 								<button type="submit" class="btn btn-success"> Confirm Order </button>

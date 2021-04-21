@@ -294,20 +294,20 @@ if ($_POST['action'] == "insert"){
         
         $p_category = mysqli_escape_string($dbconnect,$_POST['p_category']);
         
-        $p_price = mysqli_escape_string($dbconnect,$_POST['p_price']);
+        $p_price = mysqli_escape_string($dbconnect,$_POST['p_sale_price']);
         
-        $p_detail_thumb = mysqli_escape_string($dbconnect, $_POST['p_detail_teaser']);
+       // $p_detail_thumb = mysqli_escape_string($dbconnect, $_POST['p_detail_teaser']);
         
         $p_image = mysqli_escape_string($dbconnect, "/images/main/".$main);
         
-        $p_detail = nl2br(mysqli_escape_string($dbconnect,$_POST['p_detail']));
+        $p_detail = nl2br(mysqli_escape_string($dbconnect,$_POST['p_details']));
         
         $main = "/images/main" . $main;
         $thumb = "/images/thumb" . $thumb;
        
-        $insertSql = "INSERT INTO `product` (`p_name`,`p_category`,`p_price`,`p_detail-thumb`,`p_image`,`p_detail`)
+        $insertSql = "INSERT INTO `product` (`p_name`,`p_category`,`p_rrp`,`p_sale_price`,`p_image_thumb`,`p_image_one`,`p_image_two`,'p_image_three',`p_colour`,'p_description')
         VALUES
-        ('{$p_name}','{$p_category}','{$p_price}','{$p_detail_thumb}','{$p_image}','{$p_detail}')";
+        ('{$p_name}','{$p_category}','{$p_sale_price}','{$p_image_thumb}','{$p_image_one}','{$p_image_two}','{$p_image_three}','{$p_colour}','{$p_description}')";
      
         
         $insertResult = mysqli_query($dbconnect, $insertSql);
