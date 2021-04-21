@@ -59,15 +59,25 @@ if ($_POST['action'] == "insert"){
     */
     
     // Get the main image submitted in the form and set it to the main variable.
-    $main = $_FILES['p_image']['name'];
+    $main = $_FILES['p_image_one']['name'];
+
+    $imageTwo = $_FILES['p_image_Two']['name'];
+
+    $imageThree = $_FILES['p_image_Three']['name'];
+
     // Get the thumbnail image from the submitted form and set it to the thunb variable.
-    $thumb = $_FILES['p_detail-thumb']['name'];
+    $thumb = $_FILES['p_image_thumb']['name'];
     
     // After loading the image into a main string, 
     // we will also load each image into temp
     // variables. 
-    $upMain =  $_FILES['p_image']['tmp_name'];
-    $upThumb = $_FILES['p_detail-thumb'] ['tmp_name'];
+    $upMain =  $_FILES['p_image_one']['tmp_name'];
+
+    $upImageTwo =  $_FILES['p_image_two']['tmp_name'];
+
+    $upImageThree =  $_FILES['p_image_three']['tmp_name'];
+
+    $upThumb = $_FILES['p_image_thumb'] ['tmp_name'];
     
     // Here will take them main image filename and
     // strip and back slashes from the name using
@@ -95,7 +105,31 @@ if ($_POST['action'] == "insert"){
     // 'thumbExt' variable.
     $thumbExt = strtolower(getExtension($thumbFile));
     
+        // Here will take them thumbnail image filename and
+    // strip and back slashes from the name using
+    // the 'stripslashes()' function and load
+    // the result into 'thumbFile' variable.
+    $imageTwoFile = stripslashes($imageTwo);
 
+    // We then convert the string to lowercase
+    // and get the extension of the file using
+    // the 'getExtension()' function and using the
+    // mainFile variable and load the result to
+    // 'thumbExt' variable.
+    $imageTwoExt = strtolower(getExtension($imageTwo));
+
+           // Here will take them thumbnail image filename and
+    // strip and back slashes from the name using
+    // the 'stripslashes()' function and load
+    // the result into 'thumbFile' variable.
+    $imageThreeFile = stripslashes($imageThree);
+
+    // We then convert the string to lowercase
+    // and get the extension of the file using
+    // the 'getExtension()' function and using the
+    // mainFile variable and load the result to
+    // 'thumbExt' variable.
+    $imageThreeExt = strtolower(getExtension($imageThree));
     // █====================================█
 
     /*
@@ -110,7 +144,7 @@ if ($_POST['action'] == "insert"){
         @ file extensions are _NOT_ valid so we
         @ can handle an error.
     */
-    if(!validExtension($mainExt) || !validExtension($thumbExt)) {
+    if(!validExtension($mainExt) || !validExtension($thumbExt)) || !validExtension($imageTwoExt)) || !validExtension($imageThreeExt)) {
 
         // █====================================█
 
@@ -139,7 +173,15 @@ if ($_POST['action'] == "insert"){
         // Get the size for the thumbnail image and load
         // it into the variable thumbSize.
         $thumbSize = filesize($upThumb);
-               
+
+                // Get the size for the thumbnail image and load
+        // it into the variable thumbSize.
+        $imageTwoSize = filesize($upImageTwo);
+            
+        
+                // Get the size for the thumbnail image and load
+        // it into the variable thumbSize.
+        $imageThreeSize = filesize($upImageThree);
 
         /*
             @ Now we have the sizes for the images, we can
@@ -151,7 +193,7 @@ if ($_POST['action'] == "insert"){
         // If the size of the main image is BIGGER than the
         // MAX_SIZE constant AND the thumbnail size is BIGGER
         // than the MAX_SIZE constant.
-        if($mainSize > MAX_SIZE || $thumbSize > MAX_SIZE){
+        if($mainSize > MAX_SIZE || $thumbSize > MAX_SIZE || $imageTwoSize > MAX_SIZE || $imageThreeSize > MAX_SIZE){
 
             // █====================================█
 
@@ -189,6 +231,21 @@ if ($_POST['action'] == "insert"){
                 
             }
 
+            switch($imageTwoExt) {
+                case "jpg" : $imageTwoScr = imagecreatefromjpeg($upImageTwo); break;
+                case "jpeg" : $imageTwoScr = imagecreatefromjpeg($upImageTwo); break;
+                case "png" : $imageTwoScr = imagecreatefrompng($upImageTwo); break;
+                case "gif" : $imageTwoScr = imagecreatefromgif($upImageTwo); break;
+                
+            }
+            switch($imageThreeExt) {
+                case "jpg" : $imageThreeScr = imagecreatefromjpeg($upImageThree); break;
+                case "jpeg" : $imageThreeScr = imagecreatefromjpeg($upImageThree); break;
+                case "png" : $imageThreeScr = imagecreatefrompng($upImageThree); break;
+                case "gif" : $imageThreeScr = imagecreatefromgif($upImageThree); break;
+                
+            }
+
 
             // █====================================█
 
@@ -196,6 +253,8 @@ if ($_POST['action'] == "insert"){
             //Get uploaded Width and Height 
             list($mainWidth,$mainHeight) = getimagesize($upMain);
             list($thumbWidth,$thumbHeight) = getimagesize($upThumb);
+            list($imageTwoWidth,$imageTwoHeight) = getimagesize($upImageTwo);
+            list($imageThreeWidth,$imageThreeHeight) = getimagesize($upImageThree);
             
             //main New Width 
             $mainNewWidth = 215;
