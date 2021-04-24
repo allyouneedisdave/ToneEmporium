@@ -14,8 +14,10 @@ include('../inc/dbconnect.inc.php');
 */
   define("MAX_SIZE",20971520); // Define a constant for the max file size for the images. 
 
+
 if ($_POST['action'] == "insert"){
     
+$_validationMessage;
 
 // ╔═█████╗█████╗█████╗█████╗█████╗█████╗█████╗█████╗█████╗█████╗█████╗█████═╗
 // ║╔═════╝╚════╝╚════╝╚════╝╚════╝╚════╝╚════╝╚════╝╚════╝╚════╝╚════╝╚════╗║
@@ -61,10 +63,6 @@ if ($_POST['action'] == "insert"){
     // Get the main image submitted in the form and set it to the main variable.
     $main = $_FILES['p_image_one']['name'];
 
-    $imageTwo = $_FILES['p_image_Two']['name'];
-
-    $imageThree = $_FILES['p_image_Three']['name'];
-
     // Get the thumbnail image from the submitted form and set it to the thunb variable.
     $thumb = $_FILES['p_image_thumb']['name'];
     
@@ -73,12 +71,12 @@ if ($_POST['action'] == "insert"){
     // variables. 
     $upMain =  $_FILES['p_image_one']['tmp_name'];
 
-    $upImageTwo =  $_FILES['p_image_two']['tmp_name'];
-
-    $upImageThree =  $_FILES['p_image_three']['tmp_name'];
-
     $upThumb = $_FILES['p_image_thumb'] ['tmp_name'];
     
+
+
+   
+
     // Here will take them main image filename and
     // strip and back slashes from the name using
     // the 'stripslashes()' function and load
@@ -105,31 +103,6 @@ if ($_POST['action'] == "insert"){
     // 'thumbExt' variable.
     $thumbExt = strtolower(getExtension($thumbFile));
     
-        // Here will take them thumbnail image filename and
-    // strip and back slashes from the name using
-    // the 'stripslashes()' function and load
-    // the result into 'thumbFile' variable.
-    $imageTwoFile = stripslashes($imageTwo);
-
-    // We then convert the string to lowercase
-    // and get the extension of the file using
-    // the 'getExtension()' function and using the
-    // mainFile variable and load the result to
-    // 'thumbExt' variable.
-    $imageTwoExt = strtolower(getExtension($imageTwo));
-
-           // Here will take them thumbnail image filename and
-    // strip and back slashes from the name using
-    // the 'stripslashes()' function and load
-    // the result into 'thumbFile' variable.
-    $imageThreeFile = stripslashes($imageThree);
-
-    // We then convert the string to lowercase
-    // and get the extension of the file using
-    // the 'getExtension()' function and using the
-    // mainFile variable and load the result to
-    // 'thumbExt' variable.
-    $imageThreeExt = strtolower(getExtension($imageThree));
     // █====================================█
 
     /*
@@ -144,11 +117,12 @@ if ($_POST['action'] == "insert"){
         @ file extensions are _NOT_ valid so we
         @ can handle an error.
     */
-    if(!validExtension($mainExt) || !validExtension($thumbExt)) || !validExtension($imageTwoExt)) || !validExtension($imageThreeExt)) {
+    if(!validExtension($mainExt) || !validExtension($thumbExt)) {
 
         // █====================================█
 
         // Give an user friendly error message
+        $_validationMessage = "Unknown Image Extension" . $mainExt . $thumbExt;
         $_SESSION['message'] = "Unkown Image Extention";
 
         // Set the errors flag to true to indicate
@@ -174,14 +148,6 @@ if ($_POST['action'] == "insert"){
         // it into the variable thumbSize.
         $thumbSize = filesize($upThumb);
 
-                // Get the size for the thumbnail image and load
-        // it into the variable thumbSize.
-        $imageTwoSize = filesize($upImageTwo);
-            
-        
-                // Get the size for the thumbnail image and load
-        // it into the variable thumbSize.
-        $imageThreeSize = filesize($upImageThree);
 
         /*
             @ Now we have the sizes for the images, we can
@@ -193,10 +159,10 @@ if ($_POST['action'] == "insert"){
         // If the size of the main image is BIGGER than the
         // MAX_SIZE constant AND the thumbnail size is BIGGER
         // than the MAX_SIZE constant.
-        if($mainSize > MAX_SIZE || $thumbSize > MAX_SIZE || $imageTwoSize > MAX_SIZE || $imageThreeSize > MAX_SIZE){
+        if($mainSize > MAX_SIZE || $thumbSize > MAX_SIZE){
 
             // █====================================█
-
+            $_validationMessage = "You are too big!";
             // Set a user friendly error message to the message PHP session
             $_SESSION['message'] = "You are too big!";
 
@@ -231,30 +197,20 @@ if ($_POST['action'] == "insert"){
                 
             }
 
-            switch($imageTwoExt) {
-                case "jpg" : $imageTwoScr = imagecreatefromjpeg($upImageTwo); break;
-                case "jpeg" : $imageTwoScr = imagecreatefromjpeg($upImageTwo); break;
-                case "png" : $imageTwoScr = imagecreatefrompng($upImageTwo); break;
-                case "gif" : $imageTwoScr = imagecreatefromgif($upImageTwo); break;
-                
-            }
-            switch($imageThreeExt) {
-                case "jpg" : $imageThreeScr = imagecreatefromjpeg($upImageThree); break;
-                case "jpeg" : $imageThreeScr = imagecreatefromjpeg($upImageThree); break;
-                case "png" : $imageThreeScr = imagecreatefrompng($upImageThree); break;
-                case "gif" : $imageThreeScr = imagecreatefromgif($upImageThree); break;
-                
-            }
-
 
             // █====================================█
+
+            $_newFilePath = "../images/". $_POST['p_name'] . "/";
+
+            if (!file_exists($_newFilePath)) {
+    mkdir($_newFilePath, 0777, true);
+}
 
 
             //Get uploaded Width and Height 
             list($mainWidth,$mainHeight) = getimagesize($upMain);
             list($thumbWidth,$thumbHeight) = getimagesize($upThumb);
-            list($imageTwoWidth,$imageTwoHeight) = getimagesize($upImageTwo);
-            list($imageThreeWidth,$imageThreeHeight) = getimagesize($upImageThree);
+
             
             //main New Width 
             $mainNewWidth = 215;
@@ -264,7 +220,8 @@ if ($_POST['action'] == "insert"){
             //fill transparent back
             imagefill($tmpMain, 0, 0, $color);
             imagesavealpha($tmpMain, true);
-            
+
+
              //Thumb New Width 
             $thumbNewWidth = 100;
             $thumbNewHeight = ($thumbHeight/$thumbWidth)*$thumbNewWidth;
@@ -284,11 +241,11 @@ if ($_POST['action'] == "insert"){
              //resave images 
             imagecopyresampled($tmpThumb, $thumbScr, 0, 0, 0, 0, $thumbNewWidth, $thumbNewHeight, $thumbWidth, $thumbHeight);
             
-
             // █====================================█
 
 
             //create and Switch the images 
+            
             switch ($mainExt) {
                     case "jpg":
                         imagejpeg($tmpMain, "../images/main/".$main, 100);
@@ -297,7 +254,7 @@ if ($_POST['action'] == "insert"){
                         imagejpeg($tmpMain, "../images/main/".$main, 100);
                         break;
                     case "png":
-                        imagepng($tmpMain, "../images/main/".$main, 0);
+                        imagepng($tmpMain, "../images/". $_POST['p_name'] . "/" .$main, 0);
                         break;
                     case "gif":
                         imagegif($tmpMain, "../images/main/".$main );
@@ -313,7 +270,7 @@ if ($_POST['action'] == "insert"){
                         imagejpeg($tmpThumb, "../images/thumb/".$thumb, 100);
                         break;
                     case "png":
-                        imagepng($tmpThumb, "../images/thumb/".$thumb, 0);
+                        imagepng($tmpThumb, "../images/". $_POST['p_name'] . "/".$thumb, 0);
                         break;
                     case "gif":
                         imagegif($tmpThumb, "../images/thumb/".$thumb);
@@ -353,20 +310,28 @@ if ($_POST['action'] == "insert"){
         
         $p_category = mysqli_escape_string($dbconnect,$_POST['p_category']);
         
-        $p_price = mysqli_escape_string($dbconnect,$_POST['p_sale_price']);
+        $p_sale_price = mysqli_escape_string($dbconnect,$_POST['p_sale_price']);
+
+        $p_rrp = mysqli_escape_string($dbconnect,$_POST['p_rrp']);
+
+           $p_colour = mysqli_escape_string($dbconnect,$_POST['p_colour']);
         
        // $p_detail_thumb = mysqli_escape_string($dbconnect, $_POST['p_detail_teaser']);
         
-        $p_image = mysqli_escape_string($dbconnect, "/images/main/".$main);
+
+
+        $p_image_one = mysqli_escape_string($dbconnect, "/images/". $_POST['p_name'] ."/".$main);
         
-        $p_detail = nl2br(mysqli_escape_string($dbconnect,$_POST['p_details']));
+        $p_image_thumb = mysqli_escape_string($dbconnect, "/images/". $_POST['p_name'] ."/".$thumb);
+
+        $p_description = nl2br(mysqli_escape_string($dbconnect,$_POST['p_description']));
         
-        $main = "/images/main" . $main;
-        $thumb = "/images/thumb" . $thumb;
+        //$main = "/images/". $_name . $main;
+        //$thumb = "/images/". $_name . $thumb;
        
-        $insertSql = "INSERT INTO `product` (`p_name`,`p_category`,`p_rrp`,`p_sale_price`,`p_image_thumb`,`p_image_one`,`p_image_two`,'p_image_three',`p_colour`,'p_description')
+        $insertSql = "INSERT INTO `product` (`p_name`,`p_category`,`p_rrp`,`p_sale_price`,`p_image_thumb`,`p_image_one`,`p_colour`,'p_description')
         VALUES
-        ('{$p_name}','{$p_category}','{$p_sale_price}','{$p_image_thumb}','{$p_image_one}','{$p_image_two}','{$p_image_three}','{$p_colour}','{$p_description}')";
+        ('{$p_name}','{$p_category}','{$p_rrp}','{$p_sale_price}','{$p_image_thumb}','{$p_image_one}','{$p_colour}','{$p_description}')";
      
         
         $insertResult = mysqli_query($dbconnect, $insertSql);
@@ -377,6 +342,8 @@ if ($_POST['action'] == "insert"){
             //Get the ID of the product inserted
             $id = mysqli_insert_id($dbconnect);
 
+        
+
             // Redirect the user to another page
             header("location: /detail.php?id=".$id);
 
@@ -385,8 +352,12 @@ if ($_POST['action'] == "insert"){
 
         } else {
 
+        
+
+        $_validationMessage = $_validationMessage . "Failed on SQL" . $p_name . $p_category . $p_sale_price . $p_rrp . $p_colour . $p_image_one . $p_image_thumb . $p_description;
+
             // Create a user-friendly message for the user
-            $_SESSION['message'] = "Insertion Failed!";
+            $_SESSION['message'] = "Insertion Failed!" . $_validationMessage;
         
             // Redirect the user to another page
             header("location: /admin.php");
@@ -397,9 +368,10 @@ if ($_POST['action'] == "insert"){
         }; // End if insert result
  
     }else{
-
+    $_validationMessage = $_validationMessage . "Has errors";
         // Create a user-friendly message for the user
-        $_SESSION['message'] = "Insertion Failed!";
+        
+        $_SESSION['message'] = "Insertion Failed!" . $_validationMessage;
         
         // Redirect the user to another page
         header("location: /admin.php");
@@ -428,7 +400,7 @@ if ($_POST['action'] == "insert"){
     
     
     
-} else if ($_GET['action']=="delete") { // End Insert
+} else if ($_POST['action']=="delete") { // End Insert
 
 
     $deleteQuery="DELETE FROM `product` WHERE `product_id`={$_GET['id']}";
@@ -455,18 +427,20 @@ if ($_POST['action'] == "insert"){
 
     } else if ($_POST['action']=="update") { 
     
+
+
     $errors=false;
     
     //filenames
-    $main = $_FILES['p_image']['name'];;
-    $thumb = $_FILES['p_detail-thumb']['name'] ;
+    $main = $_FILES['p_image_one']['name'];;
+    $thumb = $_FILES['p_image_thumb']['name'] ;
     
     // temp file 
     if ($main){
-        $upMain =  $_FILES['p_image']['tmp_name']; 
+        $upMain =  $_FILES['p_image_one']['tmp_name']; 
     }    
     if ($thumb) {
-    $upThumb = $_FILES['p_detail-thumb'] ['tmp_name'];
+    $upThumb = $_FILES['p_image_thumb'] ['tmp_name'];
     }
     
     //image Extensions check
@@ -556,41 +530,44 @@ if ($_POST['action'] == "insert"){
         
         
         //create and Switch the images 
+        
         if ($main){
+      
                 switch ($mainExt) {
                         case "jpg":
-                            imagejpeg($tmpMain, "../images/main/".$main, 100);
+                            imagejpeg($tmpMain, "../images/" .$main, 100);
                             break;
                         case "jpeg":
-                            imagejpeg($tmpMain, "../images/main/".$main, 100);
+                            imagejpeg($tmpMain, "../images/" .$main, 100);
                             break;
                         case "png":
-                            imagepng($tmpMain, "../images/main/".$main, 0);
+                            imagepng($tmpMain, "../images/" .$main, 0);
                             break;
                         case "gif":
-                            imagegif($tmpMain, "../images/main/".$main );
+                            imagegif($tmpMain, "../images/" .$main );
                             break;
                 }
         }
        
         //create and Switch the images 
+        
         if ($main){
                 switch ($thumbExt) {
                         case "jpg":
-                            imagejpeg($tmpThumb, "../images/thumb/".$thumb, 100);
+                            imagejpeg($tmpThumb, "../images/" .$thumb, 100);
                             break;
                         case "jpeg":
-                            imagejpeg($tmpThumb, "../images/thumb/".$thumb, 100);
+                            imagejpeg($tmpThumb, "../images/".$thumb, 100);
                             break;
                         case "png":
-                            imagepng($tmpThumb, "../images/thumb/".$thumb, 0);
+                            imagepng($tmpThumb, "../images/" .$thumb, 0);
                             break;
                         case "gif":
-                            imagegif($tmpThumb, "../images/thumb/".$thumb);
+                            imagegif($tmpThumb, "../images/" .$thumb);
                             break;
                 } 
         }
-
+        
 //Free up memory 
        if($main){
                 imagedestroy($tmpMain);
@@ -609,33 +586,36 @@ if ($_POST['action'] == "insert"){
         
         $p_category = mysqli_escape_string($dbconnect,$_POST['p_category']);
         
-        $p_price = mysqli_escape_string($dbconnect,$_POST['p_price']);
+        $p_sale_price = mysqli_escape_string($dbconnect,$_POST['p_sale_price']);
+
+        $p_rrp = mysqli_escape_string($dbconnect,$_POST['p_rrp']);
         
-        $p_detail_thumb = mysqli_escape_string($dbconnect, $_POST['p_detail_teaser']);
+        //$p_detail_thumb = mysqli_escape_string($dbconnect, $_POST['p_detail_teaser']);
         
-        $p_image = mysqli_escape_string($dbconnect, "/images/main/".$main);
+       // $p_image_one = mysqli_escape_string($dbconnect, "/images/". $_POST['p_name']) . "/".$main);
         
-         $p_detail = nl2br(mysqli_escape_string($dbconnect,$_POST['p_detail']));
+         $p_description = nl2br(mysqli_escape_string($dbconnect,$_POST['p_description']));
         
+         /*
         if ($main){
-                $main = "/images/main/" . $main;
+                $main = "/images/". $_POST['p_name']) . "/" . $main;
         }
         if ($thumb){
-                $thumb = "/images/thumb/" . $thumb;
+                $thumb = "/images/". $_POST['p_name']) . "/" . $thumb;
         }
-        
+        */
 
            
 //Update Query 
         $updateSql = "UPDATE `product` SET `p_name`='{$p_name}',`p_category`='{$p_category}',
-        `p_price`='{$p_price}',`p_detail`='{$p_detail}',`p_detail-thumb`='{$p_detail_thumb}'";
+        `p_sale_price`='{$p_sale_price}',`p_rrp`='{$p_rrp}',`p_description`='{$p_description}'";
         
         if ($main){
-                $updateSql.=",`p_image`='{$main}'";
+                $updateSql.=",`p_image_one`='{$main}'";
         }
     
         if ($thumb){
-                 $updateSql.=",`p_detail-thumb`='{$thumb}'";
+                 $updateSql.=",`p_image_thumb`='{$thumb}'";
             
         }
     
@@ -644,9 +624,11 @@ if ($_POST['action'] == "insert"){
         
     
         if ($updateResult){
+          echo("<script>console.log('UPDATE OK');</script>");
             header("location: /detail.php?id=" . $_POST['id']);
             
         } else {
+         echo("<script>console.log('UPDATE FAIL');</script>");
              header("location: /detail.php?id=" . $_POST['id']);
         }
  
@@ -657,7 +639,7 @@ if ($_POST['action'] == "insert"){
 
 
 function validExtension($ext){
-    if($ext =="jpg"  || $ext =="jpeg" || $ext =="gif") {
+    if($ext =="jpg"  || $ext =="jpeg" || $ext =="gif" || $ext == "png") {
         return true;
     } else {
         return false;

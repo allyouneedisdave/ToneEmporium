@@ -70,28 +70,13 @@ include('inc/dynamicBreadcrumbs.php');
             <p><input type="file" name="p_image_thumb" placeholder="Thumbnail Image" /></p>
             Image One
             <p><input type="file" name="p_image_one" placeholder="Image" /></p>
-            Image Two
-            <p><input type="file" name="p_image_two" placeholder="Image" /></p>
-            Image Three
-            <p><input type="file" name="p_image_three" placeholder="Image" /></p>
+
             <div class="float-right"><span id="details-counter">0</span>/255</div>
             <p><textarea id="item-details" name="p_description" placeholder="Description" maxlength="255"></textarea></p>
             
              <!--Specifications-->
 
-            <p><input type="text" name="s_body" placeholder="Body" /></p>
-            <p><input type="text" name="s_neck" placeholder="Neck" /></p>
-            <p><input type="text" name="s_neck_shape" placeholder="Neck Shape" /></p>
-            <p><input type="text" name="s_fingerboard" placeholder="Fingerboard" /></p>
-            <p><input type="text" name="s_scale" placeholder="Scale" /></p>
-            <p><input type="text" name="s_radius" placeholder="Radius" /></p>
-            <p><input type="text" name="s_frets" placeholder="Frets" /></p>
-            <p><input type="text" name="s_nut" placeholder="Nut" /></p>
-            <p><input type="text" name="s_nut_width" placeholder="Nut Width" /></p>
-            <p><input type="text" name="s_pickups" placeholder="Pickups" /></p>
-            <p><input type="text" name="s_controls" placeholder="Controls" /></p>
-            <p><input type="text" name="s_bridge" placeholder="Bridge" /></p>
-            <p><input type="text" name="s_tuners" placeholder="Tuners" /></p>
+ 
            
 
             <p><input type="submit" value="Insert Product" /></p>
