@@ -213,8 +213,8 @@ $_validationMessage;
 
             
             //main New Width 
-            $mainNewWidth = 215;
-            $mainNewHeight = 215;
+            $mainNewWidth = $mainWidth;
+            $mainNewHeight = $mainHeight;
             $tmpMain = imagecreatetruecolor($mainNewWidth, $mainNewHeight); 
             $color = imagecolorallocatealpha($tmpMain, 255, 255, 255, 127); 
             //fill transparent back
@@ -223,8 +223,8 @@ $_validationMessage;
 
 
              //Thumb New Width 
-            $thumbNewWidth = 100;
-            $thumbNewHeight = ($thumbHeight/$thumbWidth)*$thumbNewWidth;
+            $thumbNewWidth = $thumbWidth;
+            $thumbNewHeight = $thumbHeight;
             $tmpThumb = imagecreatetruecolor($thumbWidth, $thumbHeight);
 
 
@@ -329,7 +329,7 @@ $_validationMessage;
         //$main = "/images/". $_name . $main;
         //$thumb = "/images/". $_name . $thumb;
        
-        $insertSql = "INSERT INTO `product` (`p_name`,`p_category`,`p_rrp`,`p_sale_price`,`p_image_thumb`,`p_image_one`,`p_colour`,'p_description')
+        $insertSql = "INSERT INTO `product` (`p_name`,`p_category`,`p_rrp`,`p_sale_price`,`p_image_thumb`,`p_image_one`,`p_colour`,`p_description`)
         VALUES
         ('{$p_name}','{$p_category}','{$p_rrp}','{$p_sale_price}','{$p_image_thumb}','{$p_image_one}','{$p_colour}','{$p_description}')";
      
