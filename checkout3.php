@@ -38,7 +38,7 @@ if (isset($_SESSION['cart']) && $_SESSION['cart'] !== "") { //if there is any it
 
 						<?php
 
-	$cart = $_SESSION[ 'cart' ]; //get chart session contnets
+	$cart = $_SESSION[ 'cart' ]; //get chart session contents
 	$items = explode( ',', $cart );
 	$content = array();
 

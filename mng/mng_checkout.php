@@ -117,6 +117,10 @@ if($_POST['stage']=="1") {
 		}
 
 	}
+		
+}
+
+	if($_POST['stage']=="3") {
 
 	// We now want to set up a non autocommit transaction to the database
 
@@ -148,6 +152,7 @@ if($_POST['stage']=="1") {
 			$productid = "";
 			$qty="";
 			$net="";
+			
 			//loop through the post array (sales Row)
 		foreach($_POST as $key=>$value){
 			if (stristr($key, 'pid')){
@@ -175,6 +180,7 @@ if($_POST['stage']=="1") {
 				if(!$rowInsert){
 					$rowRollback=true; // set rollback flag
 				}
+
 			}
 
 		}
@@ -198,6 +204,5 @@ if($_POST['stage']=="1") {
 		header("location: /checkout3.php");
 	}
 
-
-};
+	}
 ?>
