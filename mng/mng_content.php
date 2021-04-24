@@ -248,32 +248,32 @@ $_validationMessage;
             
             switch ($mainExt) {
                     case "jpg":
-                        imagejpeg($tmpMain, "../images/main/".$main, 100);
+                        imagejpeg($tmpMain, "../images/". $_POST['p_name'] . "/".$main, 100);
                         break;
                     case "jpeg":
-                        imagejpeg($tmpMain, "../images/main/".$main, 100);
+                        imagejpeg($tmpMain, "../images/". $_POST['p_name'] . "/".$main, 100);
                         break;
                     case "png":
                         imagepng($tmpMain, "../images/". $_POST['p_name'] . "/" .$main, 0);
                         break;
                     case "gif":
-                        imagegif($tmpMain, "../images/main/".$main );
+                        imagegif($tmpMain, "../images/". $_POST['p_name'] . "/".$main );
                         break;
 
             }
                 //create and Switch the images 
             switch ($thumbExt) {
                     case "jpg":
-                        imagejpeg($tmpThumb, "../images/thumb/".$thumb, 100);
+                        imagejpeg($tmpThumb, "../images/". $_POST['p_name'] . "/".$thumb, 100);
                         break;
                     case "jpeg":
-                        imagejpeg($tmpThumb, "../images/thumb/".$thumb, 100);
+                        imagejpeg($tmpThumb, "../images/". $_POST['p_name'] . "/".$thumb, 100);
                         break;
                     case "png":
                         imagepng($tmpThumb, "../images/". $_POST['p_name'] . "/".$thumb, 0);
                         break;
                     case "gif":
-                        imagegif($tmpThumb, "../images/thumb/".$thumb);
+                        imagegif($tmpThumb, "../images/". $_POST['p_name'] . "/".$thumb);
                         break;
             } 
 
@@ -312,7 +312,7 @@ $_validationMessage;
         
         $p_sale_price = mysqli_escape_string($dbconnect,$_POST['p_sale_price']);
 
-        $p_rrp = mysqli_escape_string($dbconnect,$_POST['p_rrp']);
+
 
            $p_colour = mysqli_escape_string($dbconnect,$_POST['p_colour']);
         
@@ -329,9 +329,9 @@ $_validationMessage;
         //$main = "/images/". $_name . $main;
         //$thumb = "/images/". $_name . $thumb;
        
-        $insertSql = "INSERT INTO `product` (`p_name`,`p_category`,`p_rrp`,`p_sale_price`,`p_image_thumb`,`p_image_one`,`p_colour`,`p_description`)
+        $insertSql = "INSERT INTO `product` (`p_name`,`p_category`,`p_sale_price`,`p_image_thumb`,`p_image_one`,`p_colour`,`p_description`)
         VALUES
-        ('{$p_name}','{$p_category}','{$p_rrp}','{$p_sale_price}','{$p_image_thumb}','{$p_image_one}','{$p_colour}','{$p_description}')";
+        ('{$p_name}','{$p_category}','{$p_sale_price}','{$p_image_thumb}','{$p_image_one}','{$p_colour}','{$p_description}')";
      
         
         $insertResult = mysqli_query($dbconnect, $insertSql);
@@ -354,7 +354,7 @@ $_validationMessage;
 
         
 
-        $_validationMessage = $_validationMessage . "Failed on SQL" . $p_name . $p_category . $p_sale_price . $p_rrp . $p_colour . $p_image_one . $p_image_thumb . $p_description;
+        $_validationMessage = $_validationMessage . "Failed on SQL" . $p_name . $p_category . $p_sale_price . $p_colour . $p_image_one . $p_image_thumb . $p_description;
 
             // Create a user-friendly message for the user
             $_SESSION['message'] = "Insertion Failed!" . $_validationMessage;
@@ -400,10 +400,14 @@ $_validationMessage;
     
     
     
-} else if ($_POST['action']=="delete") { // End Insert
+} else if ($_GET['action']=="delete") { // End Insert
 
 
-    $deleteQuery="DELETE FROM `product` WHERE `product_id`={$_GET['id']}";
+
+    $id = $_GET['id'];
+
+
+    $deleteQuery="DELETE FROM `product` WHERE `product_id`='$id'";
     $deleteResult=mysqli_query($dbconnect,$deleteQuery);
     
     if($deleteResult){
@@ -502,8 +506,8 @@ $_validationMessage;
            
         //main New Width 
         if ($main) {
-                $mainNewWidth = 215;
-                $mainNewHeight = 215;
+                $mainNewWidth = $mainWidth;
+                $mainNewHeight = $mainHeight;
                 $tmpMain = imagecreatetruecolor($mainNewWidth, $mainNewHeight);
                 $color = imagecolorallocatealpha($tmpMain, 255, 255, 255, 127); //fill transparent back
                 imagefill($tmpMain, 0, 0, $color);
@@ -513,8 +517,8 @@ $_validationMessage;
            
         //Thumb New Width 
            if ($thumb) {
-                $thumbNewWidth = 100;
-                $thumbNewHeight = ($thumbHeight/$thumbWidth)*$thumbNewWidth;
+                $thumbNewWidth = $thumbWidth;
+                $thumbNewHeight = $thumbHeight;
                 $tmpThumb = imagecreatetruecolor($thumbWidth, $thumbHeight);
        }
        
@@ -535,16 +539,16 @@ $_validationMessage;
       
                 switch ($mainExt) {
                         case "jpg":
-                            imagejpeg($tmpMain, "../images/" .$main, 100);
+                            imagejpeg($tmpMain, "../images/". $_POST['p_name'] . "/" .$main, 100);
                             break;
                         case "jpeg":
-                            imagejpeg($tmpMain, "../images/" .$main, 100);
+                            imagejpeg($tmpMain, "../images/". $_POST['p_name'] . "/" .$main, 100);
                             break;
                         case "png":
-                            imagepng($tmpMain, "../images/" .$main, 0);
+                            imagepng($tmpMain, "../images/". $_POST['p_name'] . "/" .$main, 0);
                             break;
                         case "gif":
-                            imagegif($tmpMain, "../images/" .$main );
+                            imagegif($tmpMain, "../images/". $_POST['p_name'] . "/" .$main );
                             break;
                 }
         }
@@ -554,16 +558,16 @@ $_validationMessage;
         if ($main){
                 switch ($thumbExt) {
                         case "jpg":
-                            imagejpeg($tmpThumb, "../images/" .$thumb, 100);
+                            imagejpeg($tmpThumb, "../images/". $_POST['p_name'] . "/" .$thumb, 100);
                             break;
                         case "jpeg":
-                            imagejpeg($tmpThumb, "../images/".$thumb, 100);
+                            imagejpeg($tmpThumb, "../images/". $_POST['p_name'] . "/".$thumb, 100);
                             break;
                         case "png":
-                            imagepng($tmpThumb, "../images/" .$thumb, 0);
+                            imagepng($tmpThumb, "../images/". $_POST['p_name'] . "/" .$thumb, 0);
                             break;
                         case "gif":
-                            imagegif($tmpThumb, "../images/" .$thumb);
+                            imagegif($tmpThumb, "../images/". $_POST['p_name'] . "/" .$thumb);
                             break;
                 } 
         }
@@ -588,7 +592,7 @@ $_validationMessage;
         
         $p_sale_price = mysqli_escape_string($dbconnect,$_POST['p_sale_price']);
 
-        $p_rrp = mysqli_escape_string($dbconnect,$_POST['p_rrp']);
+      
         
         //$p_detail_thumb = mysqli_escape_string($dbconnect, $_POST['p_detail_teaser']);
         
@@ -608,11 +612,16 @@ $_validationMessage;
            
 //Update Query 
         $updateSql = "UPDATE `product` SET `p_name`='{$p_name}',`p_category`='{$p_category}',
-        `p_sale_price`='{$p_sale_price}',`p_rrp`='{$p_rrp}',`p_description`='{$p_description}'";
+        `p_sale_price`='{$p_sale_price}',`p_description`='{$p_description}'";
         
+        $main = "/images/". $_POST['p_name'] ."/".$main;
+
+        $thumb = "/images/". $_POST['p_name'] ."/".$thumb;
+
         if ($main){
                 $updateSql.=",`p_image_one`='{$main}'";
         }
+        //"/images/". $_POST['p_name'] ."/".$thumb
     
         if ($thumb){
                  $updateSql.=",`p_image_thumb`='{$thumb}'";

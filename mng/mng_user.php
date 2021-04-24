@@ -61,7 +61,7 @@ if ( $_POST[ 'mode' ] == "register" ) {
 
 		if ( $register ){
 			// Function returned true, data inserted successfuly.
-			$_SESSION['message'] = "Thankyou for registering to Tutto: Happy Shopping! Please Log In!";
+			$_SESSION['message'] = "Welcome to Tone Emporium! Please Log In before trying to give us all of your money!";
 
 		}else{
 			$_SESSION['message'] = "There has been a registration error!";
@@ -133,7 +133,7 @@ if ( $_POST[ 'mode' ] == "login" ){
 
 			$response['success'] = true;
 
-			$response['message'] = "Welcome to the wonderful world of Tutto ".$_SESSION ['u_username']."!";
+			$response['message'] = "Hi ".$_SESSION ['u_username']."! Welcome to Tone Emporium.";
 
 			echo json_encode($response);
 

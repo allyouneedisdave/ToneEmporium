@@ -56,6 +56,8 @@ include('inc/inc_loginform.php');
 function confirmChoice(productId) {
     response = confirm ("Are you sure you want to delete?");
     if(response==1){
+    console.log("/mng/mng_content.php?action=delete&id="+productId)
+
         window.location="/mng/mng_content.php?action=delete&id="+productId; 
     } else{
         return false;

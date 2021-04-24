@@ -50,7 +50,7 @@ include('inc/dynamicBreadcrumbs.php');
             <input type="hidden" name="action" value="insert" /><br>
             <p><input type="text" name="p_name" placeholder="Name" /></p>
             <p><input type="text" name="p_colour" placeholder="Colour" /></p>
-            <p><input type="text" name="p_rrp" placeholder="RRP" /></p>
+          
             <p><input type="text" name="p_sale_price" placeholder="Sale Price" /></p>
             
             <p>
