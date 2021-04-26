@@ -21,7 +21,7 @@ while ($row=mysqli_fetch_array($updateQuery)){
     $p_name = $row['p_name'];
     $p_category = $row['p_category'];
     $p_sale_price = $row['p_sale_price'];
-    $p_rrp = $row['p_rrp'];
+    //$p_rrp = $row['p_rrp'];
     $p_description = $row['p_description'];
     //$p_detail_thumb = $row['p_detail-thumb'];
 
@@ -50,7 +50,7 @@ if(isset($_SESSION['message'])){
             
             <p><input type="text" name="p_category" placeholder="Category" value="<?php echo $p_category;?>"/></p>
             <p><input type="text" name="p_sale_price" placeholder="Sale Price"  value="<?php echo $p_sale_price;?>" /></p>
-            <p><input type="text" name="p_rrp" placeholder="RRP"  value="<?php echo $p_rrp;?>" /></p>
+            
             
             Thumbnail Image
             <p><input type="file" name="p_image_thumb" placeholder="Thumbnail Image" /></p>
