@@ -1,7 +1,10 @@
 {
   "ExpandedNodes": [
     "",
-    "\\images"
+    "\\inc",
+    "\\js",
+    "\\mng"
   ],
+  "SelectedNode": "\\cart.php",
   "PreviewInSolutionExplorer": false
 }
