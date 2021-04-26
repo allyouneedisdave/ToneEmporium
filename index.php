@@ -39,7 +39,7 @@ $general_result = mysqli_query( $dbconnect, "SELECT * FROM `product` WHERE `p_ca
 			<div class="search-container">
 			
 				<div class="card">
-					<h5 class="card-header card text-white bg-primary mb-3">Featured Products</h5>
+					<h5 class="card-header card text-white bg-primary mb-3">Featured Guitars</h5>
 					<div class="row pl-3 pr-3">
 <?php
 			// Loop through each row from results

@@ -1,5 +1,6 @@
 <?php
 
+
 // include database connection
 include('dbconnect.inc.php');
 
@@ -20,6 +21,7 @@ if (isset($_GET[ 'bathroom'] )) {
 
 ?>
     <!DOCTYPE html>
+
     <html>
 
     <head>

@@ -54,8 +54,9 @@ if(isset($_GET['page'])){
 }
 //Connect to the database and get all of the products
 
+// Search product by product name, category and colour.
 if ( isset( $_GET[ 'searchterm' ] ) ) {
-	$check = mysqli_query( $dbconnect, "SELECT * FROM `product` WHERE `p_name` LIKE '%{$_GET['searchterm']}%' or `p_category` LIKE '%{$_GET['searchterm']}%' " );
+	$check = mysqli_query( $dbconnect, "SELECT * FROM `product` WHERE `p_name` LIKE '%{$_GET['searchterm']}%' or `p_category` LIKE '%{$_GET['searchterm']}%' or `p_colour` LIKE '%{$_GET['searchterm']}%' " );
 
 } else if ( isset( $_GET[ 'cat' ] ) ) {
 
@@ -74,8 +75,10 @@ $ammount = $check->num_rows;
 // Get the number of pages required
 $numPages = ceil($ammount / $numPP);
 
+
+// Search product by product name, category and colour.
 if ( isset( $_GET[ 'searchterm' ] ) ) {
-	$result = mysqli_query( $dbconnect, "SELECT * FROM `product` WHERE `p_name` LIKE '%{$_GET['searchterm']}%' or `p_category` LIKE '%{$_GET['searchterm']}%' LIMIT $numPP OFFSET $fetchOffset" );
+	$result = mysqli_query( $dbconnect, "SELECT * FROM `product` WHERE `p_name` LIKE '%{$_GET['searchterm']}%' or `p_category` LIKE '%{$_GET['searchterm']}%' or `p_colour` LIKE '%{$_GET['searchterm']}%' LIMIT $numPP OFFSET $fetchOffset" );
 
 } else if ( isset( $_GET[ 'cat' ] ) ) {
 
