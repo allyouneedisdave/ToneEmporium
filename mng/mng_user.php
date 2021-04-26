@@ -51,11 +51,13 @@ if ( $_POST[ 'mode' ] == "register" ) {
 	else
 	{
 	// Encrypt password using md5
-		$password = md5( $_POST[ 'r_pword1' ] );
+		//$password = md5( $_POST[ 'r_pword1' ] );
+		
+		$password = trim($_POST[ 'r_pword' ]);
 
+		$hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-
-		$sql = "INSERT INTO `user` (`u_username`,`u_password`,`u_level`) VALUES ('{$username}','{$password}','user')";
+		$sql = "INSERT INTO `user` (`u_username`,`u_password`,`u_level`) VALUES ('{$username}','{$hashed_password}','user')";
 
 		$register = mysqli_query( $dbconnect, $sql );
 
@@ -116,9 +118,57 @@ if ( $_POST[ 'mode' ] == "login" ){
 
 		$username = $_POST[ 'l_uname' ];
 
-		$password = md5( $_POST[ 'l_pword' ] );
+		$password = trim($_POST[ 'l_pword' ]);
 
-		$sql = "SELECT * FROM `user` WHERE `u_username` = '{$username}' AND `u_password` = '{$password}'";
+	
+
+		$newSql = "SELECT * FROM `user` WHERE `u_username` = '{$username}'";
+
+		$newLogin = mysqli_query( $dbconnect, $newSql);
+
+		$_userId = "";
+
+		$_username = "";
+
+		$_userlevel = "";
+
+		if ( mysqli_num_rows( $newLogin ) > 0 ){
+			while ( $newRow = mysqli_fetch_array( $newLogin ) ) {
+
+			$_password = $newRow['u_password'];
+
+			//$newPassword = password_hash($password, PASSWORD_DEFAULT);
+
+			$passwordMatch = password_verify($password, $_password);
+			$res = "test";
+			
+			if($passwordMatch){
+				$res = "Match";
+			}else{
+				$res = "Fail";
+			}
+
+			/*if ( $_password == $password ){
+				$_userId = $newRow[ 'user_id' ];
+				$_username  = $newRow[ 'u_username' ];
+				$_userlevel = $newRow[ 'u_level' ];
+			}*/
+
+			$_SESSION[ 'user_id' ] = $newRow[ 'user_id' ];
+			$_SESSION[ 'u_username' ] = $res;
+			$_SESSION[ 'u_level' ] = $newRow[ 'u_level' ];
+
+			$response['success'] = true;
+			$response['message'] = "Hi ".$_SESSION ['u_username']."! Welcome to Tone Emporium.";
+			echo json_encode($response);
+			exit();
+			};
+		};
+
+
+		// ToneEmporium123
+		/*
+		$sql = "SELECT * FROM `user` WHERE `u_username` = '{$username}'";
 
 		$login = mysqli_query( $dbconnect, $sql);
 
@@ -144,7 +194,7 @@ if ( $_POST[ 'mode' ] == "login" ){
 		echo json_encode($response);
 
 		exit();
-		};
+		};*/
 
 
 	};
