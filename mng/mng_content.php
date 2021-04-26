@@ -618,12 +618,12 @@ $_validationMessage;
 
         $thumb = "/images/". $_POST['p_name'] ."/".$thumb;
 
-        if ($main){
+        if ($main != "/images/". $_POST['p_name'] ."/"){
                 $updateSql.=",`p_image_one`='{$main}'";
         }
         //"/images/". $_POST['p_name'] ."/".$thumb
     
-        if ($thumb){
+        if ($thumb != "/images/". $_POST['p_name'] ."/"){
                  $updateSql.=",`p_image_thumb`='{$thumb}'";
             
         }

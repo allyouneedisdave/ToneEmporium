@@ -64,7 +64,7 @@ if (isset($_SESSION['cart']) && $_SESSION['cart'] !== "") { //if there is any it
 
 						<div class="row cart-row">
 							<div class="col-2">
-								<img class="cart-image" src="<?= $cartRow['p_image'] ?>" alt="">
+								<img class="cart-image" src="<?= $cartRow['p_image_thumb'] ?>" alt="">
 							</div>
 							<div class="col-4">
 								<div class="cart-product-name">
