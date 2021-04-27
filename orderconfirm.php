@@ -223,8 +223,9 @@ END;
 
 
 
-		$mailSent = mail($cus_add, $subject, $message, implode("\r\n", $headers));
+		//$mailSent = mail($cus_add, $subject, $message, implode("\r\n", $headers));
 		// $mailSent = mail('jordanrandles@googlemail.com', 'test', 'test', implode("\r\n", $headers));
+		 $mailSent = mail('davelynam@hotmail.co.uk', 'test', 'test', implode("\r\n", $headers));
 	    if ($mailSent){
 	        echo "A confirmation email has been sent to the email address provided";
 	        echo "<br>Thank you for your sale.";
