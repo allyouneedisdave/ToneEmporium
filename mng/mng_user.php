@@ -53,7 +53,7 @@ if ( $_POST[ 'mode' ] == "register" ) {
 	// Encrypt password using md5
 		//$password = md5( $_POST[ 'r_pword1' ] );
 		
-		$password = trim($_POST[ 'r_pword' ]);
+		$password = trim($_POST[ 'r_pword1' ]);
 
 		$hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
@@ -134,10 +134,10 @@ if ( $_POST[ 'mode' ] == "login" ){
 
 		//test
 
-		$testPlain = "test";
-		$testHash = password_hash($testPlain, PASSWORD_DEFAULT);
+		//$testPlain = "test";
+		//$testHash = password_hash($testPlain, PASSWORD_DEFAULT);
 
-		$testCompare = password_verify("test", $testHash);
+		//$testCompare = password_verify("test", $testHash);
 
 		///
 
@@ -149,64 +149,31 @@ if ( $_POST[ 'mode' ] == "login" ){
 
 			//$newPassword = password_hash($password, PASSWORD_DEFAULT);
 
-			if(password_verify('lynam', $_password)){}
-
-			$passwordMatch = password_verify('lynam', $_password);
-			$res = "test";
-			
-			if($passwordMatch){
-				$res = "Match";
-			}else{
-				$res = "Fail";
-			}
-
-			/*if ( $_password == $password ){
-				$_userId = $newRow[ 'user_id' ];
-				$_username  = $newRow[ 'u_username' ];
-				$_userlevel = $newRow[ 'u_level' ];
-			}*/
-
+			if(password_verify($password, $_password)){
 			$_SESSION[ 'user_id' ] = $newRow[ 'user_id' ];
-			$_SESSION[ 'u_username' ] = $res;
+			$_SESSION[ 'u_username' ] = $newRow[ 'u_username' ];
 			$_SESSION[ 'u_level' ] = $newRow[ 'u_level' ];
 
 			$response['success'] = true;
-			$response['message'] = "Hi ".$_SESSION ['u_username']."! Welcome to Tone Emporium. Returned hash is :$_password:";
+			$response['message'] = "Hi ".$_SESSION ['u_username']."! Welcome to Tone Emporium.";
+			echo json_encode($response);
+			exit();
+			}else{
+			$response['message'] = "There was an issue with your username and password";
 			echo json_encode($response);
 			exit();
 			};
+
 		};
 
-
-		// ToneEmporium123
-		/*
-		$sql = "SELECT * FROM `user` WHERE `u_username` = '{$username}'";
-
-		$login = mysqli_query( $dbconnect, $sql);
-
-		if ( mysqli_num_rows( $login ) > 0 ){
-			while ( $row = mysqli_fetch_array( $login ) ) {
-				$_SESSION[ 'user_id' ] = $row[ 'user_id' ];
-
-				$_SESSION[ 'u_username' ] = $row[ 'u_username' ];
-
-				$_SESSION[ 'u_level' ] = $row[ 'u_level' ];
-			};
-
-			$response['success'] = true;
-
-			$response['message'] = "Hi ".$_SESSION ['u_username']."! Welcome to Tone Emporium.";
-
-			echo json_encode($response);
-
-			exit();
+	
 		}else{
-		$response['message'] = "There was an issue with your username and password";
+			$response['message'] = "There was an issue with your username and password";
 	
 		echo json_encode($response);
 
 		exit();
-		};*/
+		}
 
 
 	};

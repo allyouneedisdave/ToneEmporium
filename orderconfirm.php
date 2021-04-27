@@ -215,6 +215,7 @@ END;
 
 		$headers[] = 'MIME-Version: 1.0';
 		$headers[] = 'Content-type: text/html; charset=iso-8859-1';
+		//$headers[] = 'To: <'.$cus_add.'>';
 		$headers[] = 'To: <'.$cus_add.'>';
 		$headers[] = 'From: noreply <donotreply@tutto.co.uk>';
 
@@ -222,10 +223,25 @@ END;
 	    $message .= "</html>";
 
 
+		
+
+
+$to_email = "davelynam@hotmail.co.uk";
+$subject = "Simple Email Test via PHP";
+$body = "Hi,nn This is test email send by PHP Script";
+$headers = "From: toneemporiumnet@gmail.com email";
+ 
+if (mail($to_email, $subject, $body, $headers)) {
+    echo "Email successfully sent to $to_email...";
+} else {
+    echo "Email sending failed...";
+}
+
+
 
 		//$mailSent = mail($cus_add, $subject, $message, implode("\r\n", $headers));
 		// $mailSent = mail('jordanrandles@googlemail.com', 'test', 'test', implode("\r\n", $headers));
-		 $mailSent = mail('davelynam@hotmail.co.uk', 'test', 'test', implode("\r\n", $headers));
+		/* $mailSent = mail('davelynam@hotmail.co.uk', 'test', 'test', implode("\r\n", $headers));
 	    if ($mailSent){
 	        echo "A confirmation email has been sent to the email address provided";
 	        echo "<br>Thank you for your sale.";
@@ -233,6 +249,7 @@ END;
 	    }else{
 	        echo "There has been a problem with your confirmation e-mail please refreash this page. ";
 	    };
+		*/
 
 	    echo $_SESSION['message'];
 	    $_SESSION['message'] = "";
