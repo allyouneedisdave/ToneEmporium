@@ -47,14 +47,15 @@ if ( $_POST[ 'mode' ] == "register" ) {
 		header( "location: /?registerSuccess" );
 
 		exit();
-	}
-	else
-	{
-	// Encrypt password using md5
-		//$password = md5( $_POST[ 'r_pword1' ] );
+	}else{
+		// Encrypt password using md5
 		
-		$password = trim($_POST[ 'r_pword' ]);
+		//$password = trim($_POST['r_pword']);
+		// r_pword is not valid request payload data. You have either r_pword1 or r_pword2
+		// password_hash() will take an empty string and return a valid hash for the empty string... classic.
+		// First thing to check in this case is if the hash in the database is what you expect it to be. 
 
+		$password = trim($_POST['r_pword1']);
 		$hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
 		$sql = "INSERT INTO `user` (`u_username`,`u_password`,`u_level`) VALUES ('{$username}','{$hashed_password}','user')";
@@ -117,63 +118,34 @@ if ( $_POST[ 'mode' ] == "login" ){
 		// This section of code validates the user as a user in the database.
 
 		$username = $_POST[ 'l_uname' ];
-
-		$password = trim($_POST[ 'l_pword' ]);
-
-	
+		$password = trim($_POST[ 'l_pword' ]);	
 
 		$newSql = "SELECT * FROM `user` WHERE `u_username` = '{$username}'";
-
 		$newLogin = mysqli_query( $dbconnect, $newSql);
 
 		$_userId = "";
-
 		$_username = "";
-
 		$_userlevel = "";
-
-		//test
-
-		$testPlain = "test";
-		$testHash = password_hash($testPlain, PASSWORD_DEFAULT);
-
-		$testCompare = password_verify("test", $testHash);
-
-		///
-
 
 		if ( mysqli_num_rows( $newLogin ) > 0 ){
 			while ( $newRow = mysqli_fetch_array( $newLogin ) ) {
 
-			$_password = $newRow['u_password'];
+				$_password = $newRow['u_password'];
+				$passwordMatch = password_verify($password, $_password);
+				
+				if($passwordMatch){	
+					if ( $_password == $password ){
+						$_userId = $newRow[ 'user_id' ];
+						$_username  = $newRow[ 'u_username' ];
+						$_userlevel = $newRow[ 'u_level' ];
+					}
 
-			//$newPassword = password_hash($password, PASSWORD_DEFAULT);
-
-			if(password_verify('lynam', $_password)){}
-
-			$passwordMatch = password_verify('lynam', $_password);
-			$res = "test";
-			
-			if($passwordMatch){
-				$res = "Match";
-			}else{
-				$res = "Fail";
-			}
-
-			/*if ( $_password == $password ){
-				$_userId = $newRow[ 'user_id' ];
-				$_username  = $newRow[ 'u_username' ];
-				$_userlevel = $newRow[ 'u_level' ];
-			}*/
-
-			$_SESSION[ 'user_id' ] = $newRow[ 'user_id' ];
-			$_SESSION[ 'u_username' ] = $res;
-			$_SESSION[ 'u_level' ] = $newRow[ 'u_level' ];
-
-			$response['success'] = true;
-			$response['message'] = "Hi ".$_SESSION ['u_username']."! Welcome to Tone Emporium. Returned hash is :$_password:";
-			echo json_encode($response);
-			exit();
+					$response['success'] = true;
+					$response['message'] = "Hi ".$_SESSION ['u_username']."! Welcome to Tone Emporium. Returned hash is :$_password:";
+					echo json_encode($response);
+				}else{
+					echo "Failed";
+				}
 			};
 		};
 
