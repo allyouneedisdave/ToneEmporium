@@ -143,7 +143,7 @@ $general_result = mysqli_query( $dbconnect, "SELECT * FROM `product` ORDER BY RA
 				?>
 						<div class="col-lg-4 col-md-6 mb-4">
 							<div class="card h-100 border-primary mb-3">
-                                <h5 class="card-header card text-white bg-primary mb-3">Featured</h5>
+                                <h5 class="card-header card text-white mb-3" style="background-color:#D76339">Featured Guitars</h5>
 							<div class="image-container">
 									<a href="/detail.php?id=<?php echo $row['product_id'] ?>"><img class="card-img-top" style="width:100%; height:100%;" src="<?php echo $row['p_image_thumb'] ?>" alt=""></a>
 								</div>

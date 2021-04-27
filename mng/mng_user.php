@@ -63,8 +63,8 @@ if ( $_POST[ 'mode' ] == "register" ) {
 
 		if ( $register ){
 			// Function returned true, data inserted successfuly.
-			$_SESSION['message'] = "Welcome to Tone Emporium! Please Log In before trying to give us all of your money!";
-
+			/*$_SESSION['message'] = "Welcome to Tone Emporium! Please Log In before trying to give us all of your money!";*/
+			$_SESSION['message'] = "Sent to database:$hashed_password:";
 		}else{
 			$_SESSION['message'] = "There has been a registration error!";
 
@@ -132,6 +132,16 @@ if ( $_POST[ 'mode' ] == "login" ){
 
 		$_userlevel = "";
 
+		//test
+
+		$testPlain = "test";
+		$testHash = password_hash($testPlain, PASSWORD_DEFAULT);
+
+		$testCompare = password_verify("test", $testHash);
+
+		///
+
+
 		if ( mysqli_num_rows( $newLogin ) > 0 ){
 			while ( $newRow = mysqli_fetch_array( $newLogin ) ) {
 
@@ -139,7 +149,9 @@ if ( $_POST[ 'mode' ] == "login" ){
 
 			//$newPassword = password_hash($password, PASSWORD_DEFAULT);
 
-			$passwordMatch = password_verify($password, $_password);
+			if(password_verify('lynam', $_password)){}
+
+			$passwordMatch = password_verify('lynam', $_password);
 			$res = "test";
 			
 			if($passwordMatch){
@@ -159,7 +171,7 @@ if ( $_POST[ 'mode' ] == "login" ){
 			$_SESSION[ 'u_level' ] = $newRow[ 'u_level' ];
 
 			$response['success'] = true;
-			$response['message'] = "Hi ".$_SESSION ['u_username']."! Welcome to Tone Emporium.";
+			$response['message'] = "Hi ".$_SESSION ['u_username']."! Welcome to Tone Emporium. Returned hash is :$_password:";
 			echo json_encode($response);
 			exit();
 			};

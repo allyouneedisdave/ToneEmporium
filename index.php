@@ -32,6 +32,50 @@ include('inc/inc_loginform.php');
 // Display All Products exclude accessories.
 $general_result = mysqli_query( $dbconnect, "SELECT * FROM `product` WHERE `p_category`!='Accessories' ORDER BY RAND() LIMIT 9" );
 
+//-------------------------------------
+// Encryption testing/debuggin - remove when done.
+// This is in the index page just so i can console log
+// variables for testing.
+
+// Hardcoded example of plaintext being hashed.
+// then the password_verify function compares the
+// plaintext with the hash to see if the hash is correct.
+// This works as intended.....however!
+$plainPassword = "test";
+$hashedPassword = password_hash($plainPassword, PASSWORD_DEFAULT);
+
+if(password_verify($plainPassword, $hashedPassword)){
+	echo("<script>console.log('matched');</script>");
+}else{
+	echo("<script>console.log('not matched');</script>");
+}
+//-----------------------------------
+
+//-----------------------------------
+// When using the same logic but comparing
+// the plaintext with the hash returned from the db
+// password_verify does not find a match.
+
+$newSql = "SELECT * FROM `user` WHERE `u_username` = 'w'";
+
+		$newLogin = mysqli_query( $dbconnect, $newSql);
+
+		$returnedHash = "";
+
+		if ( mysqli_num_rows( $newLogin ) > 0 ){
+			while ( $newRow = mysqli_fetch_array( $newLogin ) ) {
+
+				$returnedHash = $newRow[ 'u_password' ];
+
+			};
+		};
+
+		if(password_verify('w', $returnedHash)){
+			echo("<script>console.log('matched');</script>");
+		}else{
+			echo("<script>console.log('not matched, returned hash is: $returnedHash');</script>");
+		}
+//-----------------------------------------------
 ?>
 
 		<!-- Display the product detail in the container -->
@@ -39,7 +83,7 @@ $general_result = mysqli_query( $dbconnect, "SELECT * FROM `product` WHERE `p_ca
 			<div class="search-container">
 			
 				<div class="card">
-					<h5 class="card-header card text-white bg-primary mb-3">Featured Guitars</h5>
+					<h5 class="card-header card text-white mb-3" style="background-color:#D76339">Featured Guitars</h5>
 					<div class="row pl-3 pr-3">
 <?php
 			// Loop through each row from results
