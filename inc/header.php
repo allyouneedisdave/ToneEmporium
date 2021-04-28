@@ -4,6 +4,7 @@
 // include database connection
 include('dbconnect.inc.php');
 
+
 // Search Element (Product or Category)
 if (isset($_GET[ 'bathroom'] )) {
     $result = mysqli_query($dbconnect, "SELECT * FROM `product` WHERE `p_name` LIKE '%{$_GET['bathroom']}%' or `p_category` LIKE '%{$_GET['bathroom']}%'" );
