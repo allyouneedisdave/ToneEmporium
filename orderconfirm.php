@@ -223,33 +223,53 @@ END;
 	    $message .= "</html>";
 
 
+
+
+
+
+
 		
 
 
-$to_email = "davelynam@hotmail.co.uk";
-$subject = "Simple Email Test via PHP";
-$body = "Hi,nn This is test email send by PHP Script";
-$headers = "From: toneemporiumnet@gmail.com email";
+$to_email = "$cus_add";
+$subject = "Order confirmation";
+$headers = "From: NO REPLY - Tone Emporium <toneemporiumnet@gmail.com email>";
+//$body = "Hi, thanks for ordering";
+$headers .= "MIME-Version: 1.0" . "\r\n";
+$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+
+//email body start
+$body = '<html><body><div class="container">
+		<div class="cart-title">
+			Thankyou for your order!
+		</div>';
+
+
+
+
+
+// email body end
+$body .='<div class="col-3 cart-sum">
+                    <div class="cart-sidebar">
+						<div class="cart-sum-title">Address Details<hr>
+						</div>
+                            <div class="card-body p-3">                                       
+'. $cRow ['c_fname'] . " " . $cRow ['c_sname'] .'<hr>'. $aRow ['ad_line1'] .'<br/>'. $aRow ['ad_line2'] .'<br/>'. $aRow ['ad_town'] .'<br/>'. $aRow ['ad_county'] .'<br/>'. $aRow ['ad_postcode'] .'<hr>'. $cRow ['c_phonenum'] .'<hr>'. $emailAddress .'<hr></div>
+                         </div>         
+					</div>
+      </div>
+	  </body></html>';
+
+				
+
+
+
  
 if (mail($to_email, $subject, $body, $headers)) {
     echo "Email successfully sent to $to_email...";
 } else {
     echo "Email sending failed...";
 }
-
-
-
-		//$mailSent = mail($cus_add, $subject, $message, implode("\r\n", $headers));
-		// $mailSent = mail('jordanrandles@googlemail.com', 'test', 'test', implode("\r\n", $headers));
-		/* $mailSent = mail('davelynam@hotmail.co.uk', 'test', 'test', implode("\r\n", $headers));
-	    if ($mailSent){
-	        echo "A confirmation email has been sent to the email address provided";
-	        echo "<br>Thank you for your sale.";
-	        $_SESSION['cart'] = "";
-	    }else{
-	        echo "There has been a problem with your confirmation e-mail please refreash this page. ";
-	    };
-		*/
 
 	    echo $_SESSION['message'];
 	    $_SESSION['message'] = "";

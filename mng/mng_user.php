@@ -64,7 +64,7 @@ if ( $_POST[ 'mode' ] == "register" ) {
 		if ( $register ){
 			// Function returned true, data inserted successfuly.
 			/*$_SESSION['message'] = "Welcome to Tone Emporium! Please Log In before trying to give us all of your money!";*/
-			$_SESSION['message'] = "Sent to database:$hashed_password:";
+			$_SESSION['message'] = "Welcome to Tone Emporium! Please Log In before trying to give us all of your money!";
 		}else{
 			$_SESSION['message'] = "There has been a registration error!";
 
