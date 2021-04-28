@@ -127,7 +127,10 @@ if (isset($_SESSION['cart']) && $_SESSION['cart'] !== "") { //if there is any it
 
                     $message .= $cRow ['c_fname'] . " " . $cRow ['c_sname'] . "<hr>";
 
+					$customerName = $cRow ['c_fname'] . " " . $cRow ['c_sname'];
+
 				}
+
 
 				$addressDetails=mysqli_query($dbconnect,"SELECT * FROM `address` WHERE `address_id` = '{$_SESSION['address_id']}'");
                 while ($aRow=mysqli_fetch_array($addressDetails)) {
@@ -143,12 +146,21 @@ if (isset($_SESSION['cart']) && $_SESSION['cart'] !== "") { //if there is any it
                     $message .= $aRow ['ad_town'] . "<br/>";
                     $message .= $aRow ['ad_county'] . "<br/>";
                     $message .= $aRow ['ad_postcode'] . "<hr>";
+
+					$address1 = $aRow ['ad_line1'];
+					$address2 = $aRow ['ad_line2'];
+					$address3 = $aRow ['ad_town'];
+					$address4 = $aRow ['ad_county'];
+					$postCode = $aRow ['ad_postcode'];
+
                 }
                     
                 echo $cus_num;
                 echo $cus_add.'<hr>';
                 $message .= $cus_num.'<hr>';
                 $message .= $cus_add.'<hr>';
+
+			
 
 ?>
                         </div>
@@ -210,17 +222,6 @@ END;
 
 <?php
 
-	    $subject = "Order confirmation";
-
-
-		$headers[] = 'MIME-Version: 1.0';
-		$headers[] = 'Content-type: text/html; charset=iso-8859-1';
-		//$headers[] = 'To: <'.$cus_add.'>';
-		$headers[] = 'To: <'.$cus_add.'>';
-		$headers[] = 'From: noreply <donotreply@tutto.co.uk>';
-
-	    $message .= "</body>";
-	    $message .= "</html>";
 
 
 
@@ -244,8 +245,17 @@ $body = '<html><body><div class="container">
 			Thankyou for your order!
 		</div>';
 
+		$formattedTotal = number_format($total, 2, '.', ' ');
 
-
+$body = '<hr>
+	<p class="CartGrandTotal">
+		Grand Total: <strong>&pound;' . $formattedTotal . ' </strong>
+	</p>
+	<p>
+		Please log in to see your full order details.
+	</p>
+	';
+		
 
 
 // email body end
@@ -254,7 +264,7 @@ $body .='<div class="col-3 cart-sum">
 						<div class="cart-sum-title">Address Details<hr>
 						</div>
                             <div class="card-body p-3">                                       
-'. $cRow ['c_fname'] . " " . $cRow ['c_sname'] .'<hr>'. $aRow ['ad_line1'] .'<br/>'. $aRow ['ad_line2'] .'<br/>'. $aRow ['ad_town'] .'<br/>'. $aRow ['ad_county'] .'<br/>'. $aRow ['ad_postcode'] .'<hr>'. $cRow ['c_phonenum'] .'<hr>'. $emailAddress .'<hr></div>
+'. $customerName .'<hr>'. $address1 .'<br/>'. $address2 .'<br/>'. $address3 .'<br/>'. $address4 .'<br/>'. $postCode .'<hr>'. $cus_num .'<hr>'. $cus_add .'<hr></div>
                          </div>         
 					</div>
       </div>
