@@ -118,9 +118,7 @@ if($_POST['stage']=="1") {
 
 	}
 		
-}
-
-	if($_POST['stage']=="3") {
+}else if($_POST['stage']=="3") {
 
 	// We now want to set up a non autocommit transaction to the database
 
@@ -166,6 +164,7 @@ if($_POST['stage']=="1") {
 			if (stristr($key, 'net')){
 				$net = $value;
 			};//get net total
+
 
 			if($productid && $qty && $net) {
 				// insert SALE_ROW Row
