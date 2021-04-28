@@ -69,7 +69,7 @@ if (isset($_SESSION['cart']) && $_SESSION['cart'] !== "") { //if there is any it
 			?>
 				<input type="hidden" name="pid-<?= $productId ?>" value="<?= $productId ?>"> 
 				<input type="hidden" name="net-<?= $productId ?>" value="<?= $net ?>">
-				<input type="hidden" name="qty-<?= $productId ?>" value+"<?= $price ?>">
+				<input type="hidden" name="qty-<?= $productId ?>" value="<?= $qty ?>">
 
 
 
