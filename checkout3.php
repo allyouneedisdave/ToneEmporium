@@ -64,7 +64,13 @@ if (isset($_SESSION['cart']) && $_SESSION['cart'] !== "") { //if there is any it
 
 				while ( $cartRow = mysqli_fetch_array( $cartresult ) ) {
 
-?>
+					$productId = $cartRow['product_id'];
+					$price = $cartRow['p_sale_price'];
+					$net = $price*$qty;
+			?>
+				<input type="hidden" name="pid-<?= $productId ?>" value="<?= $productId ?>"> 
+				<input type="hidden" name="net-<?= $productId ?>" value="<?= $net ?>">
+				<input type="hidden" name="qty-<?= $productId ?>" value="<?= $qty ?>">
 
 
 
@@ -85,7 +91,7 @@ if (isset($_SESSION['cart']) && $_SESSION['cart'] !== "") { //if there is any it
 
 								<div class="col-2">
 									<div class="cart-qty">
-										Qty: <input class="form-control cart-qty-input" type="number" name="qty" value="<?= $qty ?>" />
+										Qty: <?= $qty ?>
 									</div>
 								</div>
 								<div class="col-2 cart-price">

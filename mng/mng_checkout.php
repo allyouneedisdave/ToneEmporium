@@ -143,7 +143,8 @@ if($_POST['stage']=="1") {
 	NOW(),
 	{$_POST['total']})";
 
-	$saleInsert = @mysqli_query($dbconnect, $query);
+	$saleInsert = mysqli_query($dbconnect, $query);
+	$rowRollback = false;
 
 	if($saleInsert) {
 		$saleid = mysqli_insert_id($dbconnect);
@@ -176,6 +177,7 @@ if($_POST['stage']=="1") {
 				$productid="";
 				$qty="";
 				$net="";
+
 				if(!$rowInsert){
 					$rowRollback=true; // set rollback flag
 				}

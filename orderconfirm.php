@@ -234,10 +234,13 @@ END;
 
 $to_email = "$cus_add";
 $subject = "Order confirmation";
-$headers = "From: NO REPLY - Tone Emporium <toneemporiumnet@gmail.com email>";
-//$body = "Hi, thanks for ordering";
-$headers .= "MIME-Version: 1.0" . "\r\n";
+$headers = "MIME-Version: 1.0" . "\r\n";
 $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+$headers .= 'From: NO REPLY Tone Emporium <toneemporiumnet@gmail.com email>' . "\r\n";
+//$headers = "From: NO REPLY Tone Emporium <toneemporiumnet@gmail.com email>";
+//$body = "Hi, thanks for ordering";
+//$headers .= "MIME-Version: 1.0" . "\r\n";
+//$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
 
 //email body start
 $body = '<html><body><div class="container">
@@ -247,7 +250,7 @@ $body = '<html><body><div class="container">
 
 		$formattedTotal = number_format($total, 2, '.', ' ');
 
-$body = '<hr>
+$body .= '<hr>
 	<p class="CartGrandTotal">
 		Grand Total: <strong>&pound;' . $formattedTotal . ' </strong>
 	</p>
