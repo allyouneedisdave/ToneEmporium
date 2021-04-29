@@ -1,8 +1,9 @@
 {
   "ExpandedNodes": [
     "",
+    "\\inc",
     "\\mng"
   ],
-  "SelectedNode": "\\orderconfirm.php",
+  "SelectedNode": "\\inc\\dbconnect.inc.php",
   "PreviewInSolutionExplorer": false
 }
